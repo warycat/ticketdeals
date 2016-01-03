@@ -1,0 +1,6 @@
+{
+  "name": "InventoryPage",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./InventoryPage.js"
+}
