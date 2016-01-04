@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import s from './DetailPage.scss';
+import cx from 'classnames';
 import withStyles from '../../decorators/withStyles';
 
 const title = 'Detail';
@@ -25,9 +26,9 @@ class DetailPage extends Component {
           <div className="w-col w-col-4">
             <h1 className="photo-page-title">{ticket.title}</h1>
             <div className="w-richtext description-text"></div>
-            <a href="#" className="">
-              <span className="w-button">+</span> One Day Pass
-            </a>
+            {ticket.items.map((item)=>{return(
+              <a href="#" className={cx(s['btn'],s['btn--gray-border'])}>${item.amount} {item.name}</a>
+            );})}
 
           </div>
           <div className="w-col w-col-8">

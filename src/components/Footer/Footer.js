@@ -17,16 +17,18 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <span className={s.text}>© Your Company</span>
-          <span className={s.spacer}>·</span>
-          <a className={s.link} href="/" onClick={Link.handleClick}>Home</a>
-          <span className={s.spacer}>·</span>
-          <a className={s.link} href="/privacy" onClick={Link.handleClick}>Privacy</a>
-          <span className={s.spacer}>·</span>
-          <a className={s.link} href="/not-found" onClick={Link.handleClick}>Not Found</a>
+      <div className="w-section footer">
+        <div className="w-container">
+          <div>
+            <a href="#" className="w-inline-block social-icon-link"><img width="20" src="images/social-03.svg" />
+            </a>
+            <a href="#" className="w-inline-block social-icon-link"><img width="20" src="images/social-18.svg" />
+            </a>
+            <a href="#" className="w-inline-block social-icon-link"><img width="20" src="images/social-30.svg" />
+            </a>
+          </div>
         </div>
+        <div className="footer-text">Powered by JTB</div>
       </div>
     );
   }

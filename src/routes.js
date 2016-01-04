@@ -19,6 +19,7 @@ import NotFoundPage from './components/NotFoundPage';
 import ErrorPage from './components/ErrorPage';
 import InventoryPage from './components/InventoryPage';
 import DetailPage from './components/DetailPage';
+import CheckoutPage from './components/CheckoutPage';
 
 const router = new Router(on => {
   on('*', async (state, next) => {
@@ -44,7 +45,7 @@ const router = new Router(on => {
     return <DetailPage tickets={tickets} id={state.params.id} />;
   });
 
-  on('/checkout', async () => <ContactPage />);
+  on('/checkout', async () => <CheckoutPage />);
 
   on('/contact', async () => <ContactPage />);
 

@@ -16,6 +16,11 @@ import Footer from '../Footer';
 import Nav from '../Nav';
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {cart:[]};
+  }
+
 
   static propTypes = {
     context: PropTypes.shape({
@@ -58,8 +63,6 @@ class App extends Component {
       <div>
         <Nav />
         {this.props.children}
-        <Header />
-        <Feedback />
         <Footer />
       </div>
     ) : this.props.children;
