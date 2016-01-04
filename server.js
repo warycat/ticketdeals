@@ -83,11 +83,11 @@ module.exports =
   
   var _routes2 = _interopRequireDefault(_routes);
   
-  var _componentsHtml = __webpack_require__(70);
+  var _componentsHtml = __webpack_require__(74);
   
   var _componentsHtml2 = _interopRequireDefault(_componentsHtml);
   
-  var _assets = __webpack_require__(71);
+  var _assets = __webpack_require__(75);
   
   var _assets2 = _interopRequireDefault(_assets);
   
@@ -103,9 +103,9 @@ module.exports =
   //
   // Register API middleware
   // -----------------------------------------------------------------------------
-  server.use('/api/content', __webpack_require__(72));
+  server.use('/api/content', __webpack_require__(76));
   
-  server.use('/api/inventory', __webpack_require__(77));
+  server.use('/api/inventory', __webpack_require__(81));
   
   //
   // Register server-side rendering middleware
@@ -284,6 +284,10 @@ module.exports =
   
   var _componentsDetailPage2 = _interopRequireDefault(_componentsDetailPage);
   
+  var _componentsCheckoutPage = __webpack_require__(70);
+  
+  var _componentsCheckoutPage2 = _interopRequireDefault(_componentsCheckoutPage);
+  
   var router = new _reactRoutingSrcRouter2['default'](function (on) {
     on('*', function callee$1$0(state, next) {
       var component;
@@ -384,7 +388,7 @@ module.exports =
       return regeneratorRuntime.async(function callee$1$0$(context$2$0) {
         while (1) switch (context$2$0.prev = context$2$0.next) {
           case 0:
-            return context$2$0.abrupt('return', _react2['default'].createElement(_componentsContactPage2['default'], null));
+            return context$2$0.abrupt('return', _react2['default'].createElement(_componentsCheckoutPage2['default'], null));
   
           case 1:
           case 'end':
@@ -1443,7 +1447,8 @@ module.exports =
     function App() {
       _classCallCheck(this, App);
   
-      _get(Object.getPrototypeOf(App.prototype), 'constructor', this).apply(this, arguments);
+      _get(Object.getPrototypeOf(App.prototype), 'constructor', this).call(this);
+      this.state = { cart: [] };
     }
   
     _createClass(App, [{
@@ -1475,8 +1480,6 @@ module.exports =
           null,
           _react2['default'].createElement(_Nav2['default'], null),
           this.props.children,
-          _react2['default'].createElement(_Header2['default'], null),
-          _react2['default'].createElement(_Feedback2['default'], null),
           _react2['default'].createElement(_Footer2['default'], null)
         ) : this.props.children;
       }
@@ -2598,45 +2601,34 @@ module.exports =
       value: function render() {
         return _react2['default'].createElement(
           'div',
-          { className: _FooterScss2['default'].root },
+          { className: 'w-section footer' },
           _react2['default'].createElement(
             'div',
-            { className: _FooterScss2['default'].container },
+            { className: 'w-container' },
             _react2['default'].createElement(
-              'span',
-              { className: _FooterScss2['default'].text },
-              '© Your Company'
-            ),
-            _react2['default'].createElement(
-              'span',
-              { className: _FooterScss2['default'].spacer },
-              '·'
-            ),
-            _react2['default'].createElement(
-              'a',
-              { className: _FooterScss2['default'].link, href: '/', onClick: _Link2['default'].handleClick },
-              'Home'
-            ),
-            _react2['default'].createElement(
-              'span',
-              { className: _FooterScss2['default'].spacer },
-              '·'
-            ),
-            _react2['default'].createElement(
-              'a',
-              { className: _FooterScss2['default'].link, href: '/privacy', onClick: _Link2['default'].handleClick },
-              'Privacy'
-            ),
-            _react2['default'].createElement(
-              'span',
-              { className: _FooterScss2['default'].spacer },
-              '·'
-            ),
-            _react2['default'].createElement(
-              'a',
-              { className: _FooterScss2['default'].link, href: '/not-found', onClick: _Link2['default'].handleClick },
-              'Not Found'
+              'div',
+              null,
+              _react2['default'].createElement(
+                'a',
+                { href: '#', className: 'w-inline-block social-icon-link' },
+                _react2['default'].createElement('img', { width: '20', src: 'images/social-03.svg' })
+              ),
+              _react2['default'].createElement(
+                'a',
+                { href: '#', className: 'w-inline-block social-icon-link' },
+                _react2['default'].createElement('img', { width: '20', src: 'images/social-18.svg' })
+              ),
+              _react2['default'].createElement(
+                'a',
+                { href: '#', className: 'w-inline-block social-icon-link' },
+                _react2['default'].createElement('img', { width: '20', src: 'images/social-30.svg' })
+              )
             )
+          ),
+          _react2['default'].createElement(
+            'div',
+            { className: 'footer-text' },
+            'Powered by JTB'
           )
         );
       }
@@ -3910,6 +3902,10 @@ module.exports =
   
   var _DetailPageScss2 = _interopRequireDefault(_DetailPageScss);
   
+  var _classnames = __webpack_require__(33);
+  
+  var _classnames2 = _interopRequireDefault(_classnames);
+  
   var _decoratorsWithStyles = __webpack_require__(24);
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
@@ -3956,16 +3952,16 @@ module.exports =
                 ticket.title
               ),
               _react2['default'].createElement('div', { className: 'w-richtext description-text' }),
-              _react2['default'].createElement(
-                'a',
-                { href: '#', className: '' },
-                _react2['default'].createElement(
-                  'span',
-                  { className: 'w-button' },
-                  '+'
-                ),
-                ' One Day Pass'
-              )
+              ticket.items.map(function (item) {
+                return _react2['default'].createElement(
+                  'a',
+                  { href: '#', className: (0, _classnames2['default'])(_DetailPageScss2['default']['btn'], _DetailPageScss2['default']['btn--gray-border']) },
+                  '$',
+                  item.amount,
+                  ' ',
+                  item.name
+                );
+              })
             ),
             _react2['default'].createElement(
               'div',
@@ -4036,16 +4032,185 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "/**\r\n * React Starter Kit (https://www.reactstarterkit.com/)\r\n *\r\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\r\n *\r\n * This source code is licensed under the MIT license found in the\r\n * LICENSE.txt file in the root directory of this source tree.\r\n */\r\n\r\n/*\r\n * Colors\r\n * ========================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\r\n\r\n/*\r\n * Typography\r\n * ========================================================================== */\r\n\r\n/*\r\n * Layout\r\n * ========================================================================== */\r\n\r\n/*\r\n * Media queries breakpoints\r\n * ========================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\r\n\r\n/*\r\n * Animations\r\n * ========================================================================== */\r\n\r\n.DetailPage_root_1dG {\r\n\r\n}\r\n\r\n.DetailPage_container_1fu {\r\n  margin: 0 auto;\r\n  padding: 0 0 40px;\r\n  max-width: 1000px;\r\n}\r\n", "", {"version":3,"sources":["/./src/components/DetailPage/DetailPage.scss","/./src/components/variables.scss"],"names":[],"mappings":"AAAA;;;;;;;GAOG;;ACPH;;gFAEgF,CAGxB,UAAU,GACV,aAAa,CACb,UAAU,CACV,UAAU,CACV,UAAU;;AAElE;;gFAEgF;;AAIhF;;gFAEgF;;AAIhF;;gFAEgF,EAEhD,gCAAgC,EAChC,2BAA2B,EAC3B,6BAA6B,CAC7B,iCAAiC;;AAEjE;;gFAEgF;;ADvBhF;;CAEC;;AAED;EACE,eAAe;EACf,kBAAkB;EAClB,kBAA8B;CAC/B","file":"DetailPage.scss","sourcesContent":["/**\r\n * React Starter Kit (https://www.reactstarterkit.com/)\r\n *\r\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\r\n *\r\n * This source code is licensed under the MIT license found in the\r\n * LICENSE.txt file in the root directory of this source tree.\r\n */\r\n\r\n@import '../variables.scss';\r\n\r\n.root {\r\n\r\n}\r\n\r\n.container {\r\n  margin: 0 auto;\r\n  padding: 0 0 40px;\r\n  max-width: $max-content-width;\r\n}\r\n","/*\r\n * Colors\r\n * ========================================================================== */\r\n\r\n$white-base:            hsl(255, 255, 255);\r\n$gray-darker:           color(black lightness(+13.5%)); /* #222 */\r\n$gray-dark:             color(black lightness(+25%));   /* #404040 */\r\n$gray:                  color(black lightness(+33.5%)); /* #555 */\r\n$gray-light:            color(black lightness(+46.7%)); /* #777 */\r\n$gray-lighter:          color(black lightness(+93.5%)); /* #eee */\r\n\r\n/*\r\n * Typography\r\n * ========================================================================== */\r\n\r\n$font-family-base:      'Segoe UI', 'HelveticaNeue-Light', sans-serif;\r\n\r\n/*\r\n * Layout\r\n * ========================================================================== */\r\n\r\n$max-content-width:     1000px;\r\n\r\n/*\r\n * Media queries breakpoints\r\n * ========================================================================== */\r\n\r\n$screen-xs-min:         480px;  /* Extra small screen / phone */\r\n$screen-sm-min:         768px;  /* Small screen / tablet */\r\n$screen-md-min:         992px;  /* Medium screen / desktop */\r\n$screen-lg-min:         1200px; /* Large screen / wide desktop */\r\n\r\n/*\r\n * Animations\r\n * ========================================================================== */\r\n\r\n$animation-swift-out:   .45s cubic-bezier(0.3, 1, 0.4, 1) 0s;\r\n\r\n"],"sourceRoot":"webpack://"}]);
+  exports.push([module.id, "/**\r\n * React Starter Kit (https://www.reactstarterkit.com/)\r\n *\r\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\r\n *\r\n * This source code is licensed under the MIT license found in the\r\n * LICENSE.txt file in the root directory of this source tree.\r\n */\r\n\r\n/*\r\n * Colors\r\n * ========================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\r\n\r\n/*\r\n * Typography\r\n * ========================================================================== */\r\n\r\n/*\r\n * Layout\r\n * ========================================================================== */\r\n\r\n/*\r\n * Media queries breakpoints\r\n * ========================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\r\n\r\n/*\r\n * Animations\r\n * ========================================================================== */\r\n\r\n.DetailPage_root_1dG {\r\n\r\n}\r\n\r\n.DetailPage_container_1fu {\r\n  margin: 0 auto;\r\n  padding: 0 0 40px;\r\n  max-width: 1000px;\r\n}\r\n/*\r\n *\r\n * btns.css\r\n * Simple css utilities for building responsive buttons\r\n * Author: mrmrs\r\n * License: MIT\r\n *\r\n *                */\r\n\r\n/*\r\n\r\n  Base .btn class\r\n\r\n  Code:\r\n  <a href=\"#\" class=\"btn\">Default button</a>\r\n\r\n*/\r\n\r\n.DetailPage_btn_3oq, .DetailPage_btn_3oq:link, .DetailPage_btn_3oq:visited {\r\n  border-radius: .25em;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  color: #111;\r\n  display: inline-block;\r\n  font-family: avenir, helvetica, roboto, arial, sans-serif;\r\n  letter-spacing: .15em;\r\n  margin-bottom: .5em;\r\n  padding: 1em 1.5em;\r\n  text-decoration: none;\r\n  text-transform: uppercase;\r\n  -webkit-transition: color .4s, background-color .4s, border .4s;\r\n  -o-transition: color .4s, background-color .4s, border .4s;\r\n  transition: color .4s, background-color .4s, border .4s;\r\n}\r\n\r\n.DetailPage_btn_3oq:hover, .DetailPage_btn_3oq:focus {\r\n  color: #7FDBFF;\r\n  border: 1px solid #7FDBFF;\r\n  -webkit-transition: background-color .3s, color .3s, border .3s;\r\n  -o-transition: background-color .3s, color .3s, border .3s;\r\n  transition: background-color .3s, color .3s, border .3s;\r\n}\r\n\r\n.DetailPage_btn_3oq:active {\r\n  color: #0074D9;\r\n  border: 1px solid #0074D9;\r\n  -webkit-transition: background-color .3s, color .3s, border .3s;\r\n  -o-transition: background-color .3s, color .3s, border .3s;\r\n  transition: background-color .3s, color .3s, border .3s;\r\n}\r\n\r\n\r\n/*\r\n\r\n  Sizes\r\n\r\n  Small  = .btn--s\r\n  Medium = .btn--m\r\n  Large  = .btn--l\r\n\r\n  Code:\r\n  <a href=\"#\" class=\"btn btn--s\">\r\n  <a href=\"#\" class=\"btn btn--m\">\r\n  <a href=\"#\" class=\"btn btn--l\">\r\n\r\n*/\r\n\r\n.DetailPage_btn--s_1qi { font-size: 14px; }\r\n.DetailPage_btn--m_1Ag { font-size: 16px; }\r\n.DetailPage_btn--l_2Xt { font-size: 20px; border-radius: .25em!important; }\r\n\r\n\r\n/*\r\n\r\n  Layout utility for responsive buttons\r\n\r\n  Code:\r\n  <a href=\"#\" class=\"btn btn--full\">\r\n\r\n*/\r\n\r\n.DetailPage_btn--full_5nl, .DetailPage_btn--full_5nl:link {\r\n  border-radius: .25em;\r\n  display: block;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  text-align: center;\r\n  width: 100%;\r\n}\r\n\r\n\r\n/*\r\n\r\n  Skins\r\n\r\n  * Black & White\r\n  * Grays\r\n  * Colors\r\n\r\n  Code:\r\n  <a href=\"#\" class=\"btn btn--black\">\r\n  <a href=\"#\" class=\"btn btn--white\">\r\n  <a href=\"#\" class=\"btn btn--gray\">\r\n  <a href=\"#\" class=\"btn btn--gray-dark\">\r\n  <a href=\"#\" class=\"btn btn--gray-border\">\r\n  <a href=\"#\" class=\"btn btn--blue\">\r\n\r\n*/\r\n\r\n/* BLACK & WHITE */\r\n\r\n.DetailPage_btn--black_3sv, .DetailPage_btn--black_3sv:link, .DetailPage_btn--black_3sv:visited {\r\n  color: #fff;\r\n  background-color: #111;\r\n}\r\n\r\n.DetailPage_btn--black_3sv:hover, .DetailPage_btn--black_3sv:focus {\r\n  color: #fff;\r\n  background-color: #444;\r\n  border-color: #444;\r\n}\r\n\r\n.DetailPage_btn--black_3sv:active {\r\n  color: #fff;\r\n  background-color: #999;\r\n  border-color: #999;\r\n}\r\n\r\n\r\n.DetailPage_btn--white_2hn, .DetailPage_btn--white_2hn:link, .DetailPage_btn--white_2hn:visited {\r\n  color: #111;\r\n  background-color: #fff;\r\n}\r\n\r\n.DetailPage_btn--white_2hn:hover, .DetailPage_btn--white_2hn:focus {\r\n  color: #111;\r\n  background-color: rgba(255,255,255,.7);\r\n  border-color: rgba(255,255,255,.7);\r\n}\r\n\r\n.DetailPage_btn--white_2hn:active {\r\n  color: #111;\r\n  background-color: rgba(255,255,255,.9);\r\n  border-color: rgba(255,255,255,.9);\r\n}\r\n\r\n\r\n\r\n/* Gray */\r\n\r\n.DetailPage_btn--gray_2lB:link, .DetailPage_btn--gray_2lB:visited {\r\n  background-color: #f0f0f0;\r\n  border-color: #f0f0f0;\r\n  color: #555;\r\n}\r\n\r\n.DetailPage_btn--gray_2lB:hover, .DetailPage_btn--gray_2lB:focus {\r\n  background-color: #ddd;\r\n  border-color: #ddd;\r\n  color: #444;\r\n}\r\n\r\n.DetailPage_btn--gray_2lB:active {\r\n  background-color: #ccc;\r\n  border-color: #ccc;\r\n  color: #444;\r\n}\r\n\r\n.DetailPage_btn--gray-border_1QG:link, .DetailPage_btn--gray-border_1QG:visited {\r\n  background-color: #fff;\r\n  border-color: #555;\r\n  border-width: 2px;\r\n  color: #555;\r\n}\r\n\r\n.DetailPage_btn--gray-border_1QG:hover, .DetailPage_btn--gray-border_1QG:focus {\r\n  background-color: #fff;\r\n  border-color: #ddd;\r\n  color: #777;\r\n}\r\n\r\n.DetailPage_btn--gray-border_1QG:active {\r\n  background-color: #ccc;\r\n  border-color: #ccc;\r\n  color: #444;\r\n}\r\n\r\n.DetailPage_btn--gray-dark_4KZ:link, .DetailPage_btn--gray-dark_4KZ:visited {\r\n  background-color: #555;\r\n  color: #eee;\r\n}\r\n\r\n.DetailPage_btn--gray-dark_4KZ:hover, .DetailPage_btn--gray-dark_4KZ:focus {\r\n  background-color: #333;\r\n  border-color: #333;\r\n  color: #eee;\r\n}\r\n\r\n.DetailPage_btn--gray-dark_4KZ:active {\r\n  background-color: #777;\r\n  border-color: #777;\r\n  color: #eee;\r\n}\r\n\r\n\r\n/* BLUE */\r\n\r\n.DetailPage_btn--blue_3yt:link, .DetailPage_btn--blue_3yt:visited {\r\n  color: #fff;\r\n  background-color: #0074D9;\r\n}\r\n\r\n.DetailPage_btn--blue_3yt:hover, .DetailPage_btn--blue_3yt:focus {\r\n  color: #fff!important;\r\n  background-color: #0063aa;\r\n  border-color: #0063aa;\r\n}\r\n\r\n.DetailPage_btn--blue_3yt:active {\r\n  color: #fff;\r\n  background-color: #001F3F;\r\n  border-color: #001F3F;\r\n}\r\n\r\n/* Keep it mobile-first and responsive */\r\n\r\n@media screen and (min-width: 32em) {\r\n  .DetailPage_btn--full_5nl {\r\n    max-width: 16em!important;\r\n  }\r\n}", "", {"version":3,"sources":["/./src/components/DetailPage/DetailPage.scss","/./src/components/variables.scss"],"names":[],"mappings":"AAAA;;;;;;;GAOG;;ACPH;;gFAEgF,CAGxB,UAAU,GACV,aAAa,CACb,UAAU,CACV,UAAU,CACV,UAAU;;AAElE;;gFAEgF;;AAIhF;;gFAEgF;;AAIhF;;gFAEgF,EAEhD,gCAAgC,EAChC,2BAA2B,EAC3B,6BAA6B,CAC7B,iCAAiC;;AAEjE;;gFAEgF;;ADvBhF;;CAEC;;AAED;EACE,eAAe;EACf,kBAAkB;EAClB,kBAA8B;CAC/B;AACD;;;;;;;oBAOoB;;AAEpB;;;;;;;EAOE;;AAEF;EAGE,qBAAqB;EACrB,oBAAoB;EACpB,kBAAkB;EAClB,YAAY;EACZ,sBAAsB;EACtB,0DAA0D;EAC1D,sBAAsB;EACtB,oBAAoB;EACpB,mBAAmB;EACnB,sBAAsB;EACtB,0BAA0B;EAC1B,gEAAwD;EAAxD,2DAAwD;EAAxD,wDAAwD;CACzD;;AAED;EAEE,eAAe;EACf,0BAA0B;EAC1B,gEAAwD;EAAxD,2DAAwD;EAAxD,wDAAwD;CACzD;;AAED;EACE,eAAe;EACf,0BAA0B;EAC1B,gEAAwD;EAAxD,2DAAwD;EAAxD,wDAAwD;CACzD;;;AAGD;;;;;;;;;;;;;EAaE;;AAEF,yBAAU,gBAAgB,EAAE;AAC5B,yBAAU,gBAAgB,EAAE;AAC5B,yBAAU,gBAAgB,CAAC,+BAA+B,EAAE;;;AAG5D;;;;;;;EAOE;;AAEF;EAEE,qBAAqB;EACrB,eAAe;EACf,kBAAkB;EAClB,mBAAmB;EACnB,mBAAmB;EACnB,YAAY;CACb;;;AAGD;;;;;;;;;;;;;;;;EAgBE;;AAEF,mBAAmB;;AAEnB;EAGE,YAAY;EACZ,uBAAuB;CACxB;;AAED;EAEE,YAAY;EACZ,uBAAuB;EACvB,mBAAmB;CACpB;;AAED;EACE,YAAY;EACZ,uBAAuB;EACvB,mBAAmB;CACpB;;;AAGD;EAGE,YAAY;EACZ,uBAAuB;CACxB;;AAED;EAEE,YAAY;EACZ,uCAAuC;EACvC,mCAAmC;CACpC;;AAED;EACE,YAAY;EACZ,uCAAuC;EACvC,mCAAmC;CACpC;;;;AAID,UAAU;;AAEV;EAEE,0BAA0B;EAC1B,sBAAsB;EACtB,YAAY;CACb;;AAED;EAEE,uBAAuB;EACvB,mBAAmB;EACnB,YAAY;CACb;;AAED;EACE,uBAAuB;EACvB,mBAAmB;EACnB,YAAY;CACb;;AAED;EAEE,uBAAuB;EACvB,mBAAmB;EACnB,kBAAkB;EAClB,YAAY;CACb;;AAED;EAEE,uBAAuB;EACvB,mBAAmB;EACnB,YAAY;CACb;;AAED;EACE,uBAAuB;EACvB,mBAAmB;EACnB,YAAY;CACb;;AAED;EAEE,uBAAuB;EACvB,YAAY;CACb;;AAED;EAEE,uBAAuB;EACvB,mBAAmB;EACnB,YAAY;CACb;;AAED;EACE,uBAAuB;EACvB,mBAAmB;EACnB,YAAY;CACb;;;AAGD,UAAU;;AAEV;EAEE,YAAY;EACZ,0BAA0B;CAC3B;;AAED;EAEE,sBAAsB;EACtB,0BAA0B;EAC1B,sBAAsB;CACvB;;AAED;EACE,YAAY;EACZ,0BAA0B;EAC1B,sBAAsB;CACvB;;AAED,yCAAyC;;AAEzC;EACE;IACE,0BAA0B;GAC3B;CACF","file":"DetailPage.scss","sourcesContent":["/**\r\n * React Starter Kit (https://www.reactstarterkit.com/)\r\n *\r\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\r\n *\r\n * This source code is licensed under the MIT license found in the\r\n * LICENSE.txt file in the root directory of this source tree.\r\n */\r\n\r\n@import '../variables.scss';\r\n\r\n.root {\r\n\r\n}\r\n\r\n.container {\r\n  margin: 0 auto;\r\n  padding: 0 0 40px;\r\n  max-width: $max-content-width;\r\n}\r\n/*\r\n *\r\n * btns.css\r\n * Simple css utilities for building responsive buttons\r\n * Author: mrmrs\r\n * License: MIT\r\n *\r\n *                */\r\n\r\n/*\r\n\r\n  Base .btn class\r\n\r\n  Code:\r\n  <a href=\"#\" class=\"btn\">Default button</a>\r\n\r\n*/\r\n\r\n.btn,\r\n.btn:link,\r\n.btn:visited {\r\n  border-radius: .25em;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  color: #111;\r\n  display: inline-block;\r\n  font-family: avenir, helvetica, roboto, arial, sans-serif;\r\n  letter-spacing: .15em;\r\n  margin-bottom: .5em;\r\n  padding: 1em 1.5em;\r\n  text-decoration: none;\r\n  text-transform: uppercase;\r\n  transition: color .4s, background-color .4s, border .4s;\r\n}\r\n\r\n.btn:hover,\r\n.btn:focus {\r\n  color: #7FDBFF;\r\n  border: 1px solid #7FDBFF;\r\n  transition: background-color .3s, color .3s, border .3s;\r\n}\r\n\r\n.btn:active {\r\n  color: #0074D9;\r\n  border: 1px solid #0074D9;\r\n  transition: background-color .3s, color .3s, border .3s;\r\n}\r\n\r\n\r\n/*\r\n\r\n  Sizes\r\n\r\n  Small  = .btn--s\r\n  Medium = .btn--m\r\n  Large  = .btn--l\r\n\r\n  Code:\r\n  <a href=\"#\" class=\"btn btn--s\">\r\n  <a href=\"#\" class=\"btn btn--m\">\r\n  <a href=\"#\" class=\"btn btn--l\">\r\n\r\n*/\r\n\r\n.btn--s { font-size: 14px; }\r\n.btn--m { font-size: 16px; }\r\n.btn--l { font-size: 20px; border-radius: .25em!important; }\r\n\r\n\r\n/*\r\n\r\n  Layout utility for responsive buttons\r\n\r\n  Code:\r\n  <a href=\"#\" class=\"btn btn--full\">\r\n\r\n*/\r\n\r\n.btn--full,\r\n.btn--full:link {\r\n  border-radius: .25em;\r\n  display: block;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  text-align: center;\r\n  width: 100%;\r\n}\r\n\r\n\r\n/*\r\n\r\n  Skins\r\n\r\n  * Black & White\r\n  * Grays\r\n  * Colors\r\n\r\n  Code:\r\n  <a href=\"#\" class=\"btn btn--black\">\r\n  <a href=\"#\" class=\"btn btn--white\">\r\n  <a href=\"#\" class=\"btn btn--gray\">\r\n  <a href=\"#\" class=\"btn btn--gray-dark\">\r\n  <a href=\"#\" class=\"btn btn--gray-border\">\r\n  <a href=\"#\" class=\"btn btn--blue\">\r\n\r\n*/\r\n\r\n/* BLACK & WHITE */\r\n\r\n.btn--black,\r\n.btn--black:link,\r\n.btn--black:visited {\r\n  color: #fff;\r\n  background-color: #111;\r\n}\r\n\r\n.btn--black:hover,\r\n.btn--black:focus {\r\n  color: #fff;\r\n  background-color: #444;\r\n  border-color: #444;\r\n}\r\n\r\n.btn--black:active {\r\n  color: #fff;\r\n  background-color: #999;\r\n  border-color: #999;\r\n}\r\n\r\n\r\n.btn--white,\r\n.btn--white:link,\r\n.btn--white:visited {\r\n  color: #111;\r\n  background-color: #fff;\r\n}\r\n\r\n.btn--white:hover,\r\n.btn--white:focus {\r\n  color: #111;\r\n  background-color: rgba(255,255,255,.7);\r\n  border-color: rgba(255,255,255,.7);\r\n}\r\n\r\n.btn--white:active {\r\n  color: #111;\r\n  background-color: rgba(255,255,255,.9);\r\n  border-color: rgba(255,255,255,.9);\r\n}\r\n\r\n\r\n\r\n/* Gray */\r\n\r\n.btn--gray:link,\r\n.btn--gray:visited {\r\n  background-color: #f0f0f0;\r\n  border-color: #f0f0f0;\r\n  color: #555;\r\n}\r\n\r\n.btn--gray:hover,\r\n.btn--gray:focus {\r\n  background-color: #ddd;\r\n  border-color: #ddd;\r\n  color: #444;\r\n}\r\n\r\n.btn--gray:active {\r\n  background-color: #ccc;\r\n  border-color: #ccc;\r\n  color: #444;\r\n}\r\n\r\n.btn--gray-border:link,\r\n.btn--gray-border:visited {\r\n  background-color: #fff;\r\n  border-color: #555;\r\n  border-width: 2px;\r\n  color: #555;\r\n}\r\n\r\n.btn--gray-border:hover,\r\n.btn--gray-border:focus {\r\n  background-color: #fff;\r\n  border-color: #ddd;\r\n  color: #777;\r\n}\r\n\r\n.btn--gray-border:active {\r\n  background-color: #ccc;\r\n  border-color: #ccc;\r\n  color: #444;\r\n}\r\n\r\n.btn--gray-dark:link,\r\n.btn--gray-dark:visited {\r\n  background-color: #555;\r\n  color: #eee;\r\n}\r\n\r\n.btn--gray-dark:hover,\r\n.btn--gray-dark:focus {\r\n  background-color: #333;\r\n  border-color: #333;\r\n  color: #eee;\r\n}\r\n\r\n.btn--gray-dark:active {\r\n  background-color: #777;\r\n  border-color: #777;\r\n  color: #eee;\r\n}\r\n\r\n\r\n/* BLUE */\r\n\r\n.btn--blue:link,\r\n.btn--blue:visited {\r\n  color: #fff;\r\n  background-color: #0074D9;\r\n}\r\n\r\n.btn--blue:hover,\r\n.btn--blue:focus {\r\n  color: #fff!important;\r\n  background-color: #0063aa;\r\n  border-color: #0063aa;\r\n}\r\n\r\n.btn--blue:active {\r\n  color: #fff;\r\n  background-color: #001F3F;\r\n  border-color: #001F3F;\r\n}\r\n\r\n/* Keep it mobile-first and responsive */\r\n\r\n@media screen and (min-width: 32em) {\r\n  .btn--full {\r\n    max-width: 16em!important;\r\n  }\r\n}","/*\r\n * Colors\r\n * ========================================================================== */\r\n\r\n$white-base:            hsl(255, 255, 255);\r\n$gray-darker:           color(black lightness(+13.5%)); /* #222 */\r\n$gray-dark:             color(black lightness(+25%));   /* #404040 */\r\n$gray:                  color(black lightness(+33.5%)); /* #555 */\r\n$gray-light:            color(black lightness(+46.7%)); /* #777 */\r\n$gray-lighter:          color(black lightness(+93.5%)); /* #eee */\r\n\r\n/*\r\n * Typography\r\n * ========================================================================== */\r\n\r\n$font-family-base:      'Segoe UI', 'HelveticaNeue-Light', sans-serif;\r\n\r\n/*\r\n * Layout\r\n * ========================================================================== */\r\n\r\n$max-content-width:     1000px;\r\n\r\n/*\r\n * Media queries breakpoints\r\n * ========================================================================== */\r\n\r\n$screen-xs-min:         480px;  /* Extra small screen / phone */\r\n$screen-sm-min:         768px;  /* Small screen / tablet */\r\n$screen-md-min:         992px;  /* Medium screen / desktop */\r\n$screen-lg-min:         1200px; /* Large screen / wide desktop */\r\n\r\n/*\r\n * Animations\r\n * ========================================================================== */\r\n\r\n$animation-swift-out:   .45s cubic-bezier(0.3, 1, 0.4, 1) 0s;\r\n\r\n"],"sourceRoot":"webpack://"}]);
   
   // exports
   exports.locals = {
   	"root": "DetailPage_root_1dG",
-  	"container": "DetailPage_container_1fu"
+  	"container": "DetailPage_container_1fu",
+  	"btn": "DetailPage_btn_3oq",
+  	"btn--s": "DetailPage_btn--s_1qi",
+  	"btn--m": "DetailPage_btn--m_1Ag",
+  	"btn--l": "DetailPage_btn--l_2Xt",
+  	"btn--full": "DetailPage_btn--full_5nl",
+  	"btn--black": "DetailPage_btn--black_3sv",
+  	"btn--white": "DetailPage_btn--white_2hn",
+  	"btn--gray": "DetailPage_btn--gray_2lB",
+  	"btn--gray-border": "DetailPage_btn--gray-border_1QG",
+  	"btn--gray-dark": "DetailPage_btn--gray-dark_4KZ",
+  	"btn--blue": "DetailPage_btn--blue_3yt"
   };
 
 /***/ },
 /* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+  /**
+   * React Starter Kit (https://www.reactstarterkit.com/)
+   *
+   * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE.txt file in the root directory of this source tree.
+   */
+  
+  'use strict';
+  
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  });
+  
+  var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+  
+  var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+  
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+  
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+  
+  function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+  
+  var _react = __webpack_require__(4);
+  
+  var _react2 = _interopRequireDefault(_react);
+  
+  var _CheckoutPageScss = __webpack_require__(71);
+  
+  var _CheckoutPageScss2 = _interopRequireDefault(_CheckoutPageScss);
+  
+  var _decoratorsWithStyles = __webpack_require__(24);
+  
+  var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
+  
+  var _griddleReact = __webpack_require__(73);
+  
+  var _griddleReact2 = _interopRequireDefault(_griddleReact);
+  
+  var title = 'Checkout';
+  
+  var fakeData = [{
+    "id": 1,
+    "ticket": "Universal Studios Hollywood",
+    "name": "1-DAY TICKET",
+    "amount": "$85"
+  }, {
+    "id": 2,
+    "ticket": "Universal Studios Hollywood",
+    "name": "VIP EXPERIENCE",
+    "amount": "$299"
+  }, {
+    "id": 3,
+    "ticket": "DISNEYLAND",
+    "name": "1-DAY TICKET",
+    "amount": "$99"
+  }];
+  
+  var CheckoutPage = (function (_Component) {
+    _inherits(CheckoutPage, _Component);
+  
+    function CheckoutPage() {
+      _classCallCheck(this, _CheckoutPage);
+  
+      _get(Object.getPrototypeOf(_CheckoutPage.prototype), 'constructor', this).apply(this, arguments);
+    }
+  
+    _createClass(CheckoutPage, [{
+      key: 'componentWillMount',
+      value: function componentWillMount() {
+        this.context.onSetTitle(title);
+      }
+    }, {
+      key: 'render',
+      value: function render() {
+        return _react2['default'].createElement(
+          'div',
+          { className: 'w-container' },
+          _react2['default'].createElement(_griddleReact2['default'], { results: fakeData })
+        );
+      }
+    }], [{
+      key: 'contextTypes',
+      value: {
+        onSetTitle: _react.PropTypes.func.isRequired
+      },
+      enumerable: true
+    }]);
+  
+    var _CheckoutPage = CheckoutPage;
+    CheckoutPage = (0, _decoratorsWithStyles2['default'])(_CheckoutPageScss2['default'])(CheckoutPage) || CheckoutPage;
+    return CheckoutPage;
+  })(_react.Component);
+  
+  exports['default'] = CheckoutPage;
+  module.exports = exports['default'];
+
+/***/ },
+/* 71 */
+/***/ function(module, exports, __webpack_require__) {
+
+  
+      var content = __webpack_require__(72);
+      var insertCss = __webpack_require__(20);
+  
+      if (typeof content === 'string') {
+        content = [[module.id, content, '']];
+      }
+  
+      module.exports = content.locals || {};
+      module.exports._getCss = function() { return content.toString(); };
+      module.exports._insertCss = insertCss.bind(null, content);
+    
+      var removeCss = function() {};
+  
+      // Hot Module Replacement
+      // https://webpack.github.io/docs/hot-module-replacement
+      if (false) {
+        module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap&modules&localIdentName=[name]_[local]_[hash:base64:3]!./../../../node_modules/postcss-loader/index.js!./CheckoutPage.scss", function() {
+          var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap&modules&localIdentName=[name]_[local]_[hash:base64:3]!./../../../node_modules/postcss-loader/index.js!./CheckoutPage.scss");
+          if (typeof newContent === 'string') {
+            newContent = [[module.id, content, '']];
+          }
+          removeCss = insertCss(newContent, { replace: true });
+        });
+        module.hot.dispose(function() { removeCss(); });
+      }
+    
+
+/***/ },
+/* 72 */
+/***/ function(module, exports, __webpack_require__) {
+
+  exports = module.exports = __webpack_require__(19)();
+  // imports
+  
+  
+  // module
+  exports.push([module.id, "/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n/*\r\n * Colors\r\n * ========================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\r\n\r\n/*\r\n * Typography\r\n * ========================================================================== */\r\n\r\n/*\r\n * Layout\r\n * ========================================================================== */\r\n\r\n/*\r\n * Media queries breakpoints\r\n * ========================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\r\n\r\n/*\r\n * Animations\r\n * ========================================================================== */\n\n.CheckoutPage_root_1PG {\n\n}\n\n.CheckoutPage_container_2vi {\n  margin: 0 auto;\n  padding: 0 0 40px;\n  max-width: 1000px;\n}\n", "", {"version":3,"sources":["/./src/components/CheckoutPage/CheckoutPage.scss","/./src/components/variables.scss"],"names":[],"mappings":"AAAA;;;;;;;GAOG;;ACPH;;gFAEgF,CAGxB,UAAU,GACV,aAAa,CACb,UAAU,CACV,UAAU,CACV,UAAU;;AAElE;;gFAEgF;;AAIhF;;gFAEgF;;AAIhF;;gFAEgF,EAEhD,gCAAgC,EAChC,2BAA2B,EAC3B,6BAA6B,CAC7B,iCAAiC;;AAEjE;;gFAEgF;;ADvBhF;;CAEC;;AAED;EACE,eAAe;EACf,kBAAkB;EAClB,kBAA8B;CAC/B","file":"CheckoutPage.scss","sourcesContent":["/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n@import '../variables.scss';\n\n.root {\n\n}\n\n.container {\n  margin: 0 auto;\n  padding: 0 0 40px;\n  max-width: $max-content-width;\n}\n","/*\r\n * Colors\r\n * ========================================================================== */\r\n\r\n$white-base:            hsl(255, 255, 255);\r\n$gray-darker:           color(black lightness(+13.5%)); /* #222 */\r\n$gray-dark:             color(black lightness(+25%));   /* #404040 */\r\n$gray:                  color(black lightness(+33.5%)); /* #555 */\r\n$gray-light:            color(black lightness(+46.7%)); /* #777 */\r\n$gray-lighter:          color(black lightness(+93.5%)); /* #eee */\r\n\r\n/*\r\n * Typography\r\n * ========================================================================== */\r\n\r\n$font-family-base:      'Segoe UI', 'HelveticaNeue-Light', sans-serif;\r\n\r\n/*\r\n * Layout\r\n * ========================================================================== */\r\n\r\n$max-content-width:     1000px;\r\n\r\n/*\r\n * Media queries breakpoints\r\n * ========================================================================== */\r\n\r\n$screen-xs-min:         480px;  /* Extra small screen / phone */\r\n$screen-sm-min:         768px;  /* Small screen / tablet */\r\n$screen-md-min:         992px;  /* Medium screen / desktop */\r\n$screen-lg-min:         1200px; /* Large screen / wide desktop */\r\n\r\n/*\r\n * Animations\r\n * ========================================================================== */\r\n\r\n$animation-swift-out:   .45s cubic-bezier(0.3, 1, 0.4, 1) 0s;\r\n\r\n"],"sourceRoot":"webpack://"}]);
+  
+  // exports
+  exports.locals = {
+  	"root": "CheckoutPage_root_1PG",
+  	"container": "CheckoutPage_container_2vi"
+  };
+
+/***/ },
+/* 73 */
+/***/ function(module, exports) {
+
+  module.exports = require("griddle-react");
+
+/***/ },
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
   /**
@@ -4156,13 +4321,13 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 71 */
+/* 75 */
 /***/ function(module, exports) {
 
   module.exports = require("./assets");
 
 /***/ },
-/* 72 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
   /**
@@ -4184,7 +4349,7 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
   
-  var _fs = __webpack_require__(73);
+  var _fs = __webpack_require__(77);
   
   var _fs2 = _interopRequireDefault(_fs);
   
@@ -4192,15 +4357,15 @@ module.exports =
   
   var _express = __webpack_require__(3);
   
-  var _bluebird = __webpack_require__(74);
+  var _bluebird = __webpack_require__(78);
   
   var _bluebird2 = _interopRequireDefault(_bluebird);
   
-  var _jade = __webpack_require__(75);
+  var _jade = __webpack_require__(79);
   
   var _jade2 = _interopRequireDefault(_jade);
   
-  var _frontMatter = __webpack_require__(76);
+  var _frontMatter = __webpack_require__(80);
   
   var _frontMatter2 = _interopRequireDefault(_frontMatter);
   
@@ -4297,31 +4462,31 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 73 */
+/* 77 */
 /***/ function(module, exports) {
 
   module.exports = require("fs");
 
 /***/ },
-/* 74 */
+/* 78 */
 /***/ function(module, exports) {
 
   module.exports = require("bluebird");
 
 /***/ },
-/* 75 */
+/* 79 */
 /***/ function(module, exports) {
 
   module.exports = require("jade");
 
 /***/ },
-/* 76 */
+/* 80 */
 /***/ function(module, exports) {
 
   module.exports = require("front-matter");
 
 /***/ },
-/* 77 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -4340,59 +4505,207 @@ module.exports =
     id: 1,
     title: 'UNIVERSAL STUDIOS HOLLYWOOD',
     thumb: 'ush.jpg',
-    photo: 'main-vip2.jpg'
+    photo: 'main-vip2.jpg',
+    items: [{
+      amount: 85,
+      name: '1-Day Ticket'
+    }, {
+      amount: 299,
+      name: 'VIP Experience'
+    }, {
+      amount: 149,
+      name: 'Front of Line Ticket'
+    }, {
+      amount: 299,
+      name: 'Gold Annual Pass'
+    }, {
+      amount: 139,
+      name: 'Annual Pass'
+    }, {
+      amount: 25,
+      name: 'Preferred Parking'
+    }, {
+      amount: 18,
+      name: 'General Parking'
+    }]
   }, {
     id: 2,
     title: 'DISNEYLAND',
-    thumb: 'dl.jpg'
+    thumb: 'dl.jpg',
+    photo: 'disneyland.jpg',
+    items: [{
+      amount: 99,
+      name: '1-Day Ticket'
+    }, {
+      amount: 185,
+      name: '2-Day Ticket'
+    }, {
+      amount: 235,
+      name: '3-Day Ticket'
+    }, {
+      amount: 260,
+      name: '4-Day Ticket'
+    }, {
+      amount: 275,
+      name: '5-Day Ticket'
+    }]
   }, {
     id: 3,
     title: 'BLUE MAN GROUP',
-    thumb: 'bmg.jpg'
+    thumb: 'bmg.jpg',
+    photo: 'bluemangroup.jpg',
+    items: [{
+      amount: 98,
+      name: 'January 7:00 PM'
+    }, {
+      amount: 98,
+      name: 'January 9:30 PM'
+    }]
   }, {
     id: 4,
     title: 'CRISS ANGLE BELIEVE',
-    thumb: 'cab.jpg'
+    thumb: 'cab.jpg',
+    photo: 'show_believe.jpg',
+    items: [{
+      amount: 73,
+      name: 'January 7:00PM'
+    }, {
+      amount: 73,
+      name: 'January 9:30PM'
+    }]
   }, {
     id: 5,
     title: 'JERSEY BOYS',
-    thumb: 'jb.jpg'
+    thumb: 'jb.jpg',
+    photo: 'jerseyboys.jpg',
+    items: [{
+      amount: 60,
+      name: 'January 7:00PM'
+    }]
   }, {
     id: 6,
     title: 'KÀ BY CIRQUE DU SOLEIL',
-    thumb: 'ka.jpg'
+    thumb: 'ka.jpg',
+    photo: 'kashow.jpg',
+    items: [{
+      amount: 77,
+      name: 'January 7:00PM'
+    }, {
+      amount: 77,
+      name: 'January 9:30PM'
+    }]
   }, {
     id: 7,
     title: 'MICHAEL JACKSON ONE',
-    thumb: 'mjo.jpg'
+    thumb: 'mjo.jpg',
+    photo: 'michaeljacksonone.jpg',
+    items: [{
+      amount: 83,
+      name: 'January 7:00PM'
+    }, {
+      amount: 83,
+      name: 'January 9:30PM'
+    }]
   }, {
     id: 8,
     title: 'MYSTÈRE BY CIRQUE DU SOLEIL',
-    thumb: 'mystere.jpg'
+    thumb: 'mystere.jpg',
+    photo: 'mystereshow.jpg',
+    items: [{
+      amount: 103,
+      name: 'January 7:00PM'
+    }, {
+      amount: 103,
+      name: 'January 9:30PM'
+    }]
   }, {
     id: 9,
     title: 'O BY CIRQUE DU SOLEIL',
-    thumb: 'o.jpg'
-  }, {
-    id: 11,
-    title: 'SAN DIEGO ZOO',
-    thumb: 'sdz.jpg'
+    thumb: 'o.jpg',
+    photo: 'oshow.jpg',
+    items: [{
+      amount: 123,
+      name: 'January 7:00PM'
+    }, {
+      amount: 123,
+      name: 'January 9:30PM'
+    }]
   }, {
     id: 10,
-    title: 'LE RÊVE - THE DREAM',
-    thumb: 'reve.jpg'
+    title: 'SAN DIEGO ZOO',
+    thumb: 'sdz.jpg',
+    photo: 'sandiegozoo.jpg',
+    items: [{
+      amount: 50,
+      name: '1-Day Pass'
+    }, {
+      amount: 56,
+      name: '2-Day Pass Plus'
+    }, {
+      amount: 90,
+      name: '2-visit Pass'
+    }, {
+      amount: 165,
+      name: '3-For-1 Pass'
+    }]
   }, {
     id: 11,
-    title: 'SAFARI PARK',
-    thumb: 'sp.jpg'
+    title: 'LE RÊVE - THE DREAM',
+    thumb: 'reve.jpg',
+    photo: 'thedream.jpg',
+    items: [{
+      amount: 114,
+      name: 'January 7:00PM'
+    }, {
+      amount: 114,
+      name: 'January 9:30PM'
+    }]
   }, {
     id: 12,
-    title: 'SEA WORLD',
-    thumb: 'sw.jpg'
+    title: 'SAFARI PARK',
+    thumb: 'sp.jpg',
+    photo: 'safaripark.jpg',
+    items: [{
+      amount: 50,
+      name: '1-Day Pass'
+    }, {
+      amount: 90,
+      name: '2-visit Pass'
+    }, {
+      amount: 165,
+      name: '3-For-1 Pass'
+    }]
   }, {
     id: 13,
+    title: 'SEA WORLD',
+    thumb: 'sw.jpg',
+    photo: 'seaworld.jpg',
+    items: [{
+      amount: 89,
+      name: 'Single-Day Ticket'
+    }, {
+      amount: 83,
+      name: 'Fun Card'
+    }]
+  }, {
+    id: 14,
     title: 'USS MIDWAY',
-    thumb: 'um.jpg'
+    thumb: 'um.jpg',
+    photo: 'ussmidway.jpg',
+    items: [{
+      amount: 20,
+      name: 'Adults Pass'
+    }, {
+      amount: 17,
+      name: 'Seniors Pass'
+    }, {
+      amount: 15,
+      name: 'Students Pass'
+    }, {
+      amount: 10,
+      name: 'Youth Pass'
+    }]
+  
   }];
   
   router.get('/', function callee$0$0(req, res, next) {
